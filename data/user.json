@@ -1,0 +1,31 @@
+[
+    {
+        "username": "gib123",
+        "email": "kgibran53@gmail.com",
+        "password": "gibran123",
+        "role": "personal"
+    },
+    {
+        "username": "tia1921",
+        "email": "tiamegap@gmail.com",
+        "password": "tia19203",
+        "role": "personal"    },
+    {
+        "username": "gtGadget",
+        "email": "gtgadget112@gmail.com",
+        "password": "gtgadget123",
+        "role": "business"
+    },
+    {
+        "username": "pstore112",
+        "email": "pstore332@gmail.com",
+        "password": "pstore123",
+        "role": "business"
+    },
+    {
+        "username": "chris331",
+        "email": "christian123@gmail.com",
+        "password": "chris192903",
+        "role": "personal"
+    }
+  ]
