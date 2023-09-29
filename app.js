@@ -18,35 +18,22 @@ app.get("/", Controller.registration)
 
 app.use(express.json());
 
-// console.log(cron.validate('*/5 * * * *'))
-// const job = cron.schedule('*/5 * * * * ', async () => {
 
-//     console.log(">>>")
-//     // Controller.cleanUpExpiredPostTask()
-//     const oneWeekAgo = moment().subtract(7,'d').format('YYYY-MM-DD');
-//    const result = await Post.destroy({
-//         where: {
-//           createdAt: {
-//             [Op.lt]: oneWeekAgo,
-//           },
-//         },
-//       })
 
-//       console.log("======")
+    console.log(">>>")
+    // Controller.cleanUpExpiredPostTask()
+    const job = cron.schedule('* * * * * *', () => {
+
+        console.log(">>>")
+        Controller.cleanUpExpiredPostTask()
+    })
+    
+    job.start()
       
-      
-//    })
 
-//    job.start()
+   job.start()
 
-const CronJob = require('cron').CronJob;
 
-const exampleJob = new CronJob(`*/2 * * * * *`,()=>{
-    console.log(">>>>>>");
-});
-Controller.cleanUpExpiredPostTask()
-
-exampleJob.start();
 
 app.listen(port, () => {
     console.log(`Listening port ${port}`)

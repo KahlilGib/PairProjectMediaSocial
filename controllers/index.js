@@ -1,7 +1,7 @@
 const { where } = require("sequelize")
 const {User, Post, Like, Profile, User_Follower} = require("../models")
 const { Op } = require('sequelize');
-const { moment } = require(`moment`)
+const moment = require(`moment`)
 const db = require("../models");
 const user = require("../models/user");
 let bcrypt = require('bcryptjs');
@@ -42,29 +42,28 @@ class Controller {
             password: data.password,
         }
         console.log(">>> body" , data)
-        User.findOne({ where: { email } })
-        .then((user) => {
-          if (user) {
-            const isValidPassword = bcrypt.compareSync(password, user.password);
-  
+        User.findOne({ where: { email: user.email } })
+        .then((foundUser) => {
+          if (foundUser) {
+            const isValidPassword = bcrypt.compareSync(user.password, foundUser.password);
+    
             if (isValidPassword) {
-              req.session.userId = user.id;
-              req.session.role = user.role;
-  
+              req.session.userId = foundUser.id;
+              req.session.role = foundUser.role;
+    
               return res.redirect(`/registration`);
-              // return res.redirect(`/profiles/create/${user.id}`);
             } else {
               const error = 'Sorry, your password was incorrect. Please double-check your password.';
-              return res.redirect(`/registration`);
+              return res.status(401).send(error);
             }
           } else {
             const error = 'Sorry, your email was incorrect. Please double-check your email.';
-            return res.redirect(`/registration`);
+            return res.status(401).send(error);
           }
         })
         .catch((err) => {
           console.log(err);
-          res.send(err);
+          res.status(500).send("Internal Server Error");
         });
     }
 
